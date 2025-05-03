@@ -3,7 +3,6 @@ public class Photo {
     private String path;
     LinkedList<String> allTags = new LinkedList<>();
 
-    // Constructor
     public Photo(String path, LinkedList<String> tags)
     {
         this.path = path;
@@ -11,22 +10,20 @@ public class Photo {
         if (! tags.empty())
         {
             tags.findFirst();
-            while ( !tags.last())//all except the last
+            while ( !tags.last())
             {
                 allTags.insert(tags.retrieve());
                 tags.findNext();
             }
-            allTags.insert(tags.retrieve());//the last one
+            allTags.insert(tags.retrieve());
         }
     }
 
-    // Return the path (full file name) of the photo. A photo is uniquely identified by its path.
     public String getPath()
     {
         return path;
     }
 
-    // Return all tags associated with the photo
     public LinkedList<String> getTags()
     {
         LinkedList<String> tagsNew = new LinkedList<String>();
