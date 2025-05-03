@@ -1,13 +1,10 @@
 public class InvIndexPhotoManager {
     BST<LinkedList<Photo>> Inverted_Index;
-
-    // Constructor
+    
     public InvIndexPhotoManager()
     {
         Inverted_Index = new BST<LinkedList<Photo>>();
     }
-
-    // Add a photo
     public void addPhoto(Photo p)
     {
         LinkedList<String> tags = p.getTags();
@@ -44,8 +41,6 @@ public class InvIndexPhotoManager {
             }
         }
     }
-
-    // Delete a photo
     public void deletePhoto(String path)
     {
         String AllTags = Inverted_Index.inOrder();
@@ -76,8 +71,6 @@ public class InvIndexPhotoManager {
                 Inverted_Index.update(tags[i], photos_inverted);
         }
     }
-
-    // Return the inverted index of all managed photos
     public BST<LinkedList<Photo>> getPhotos()
     {
         return Inverted_Index;
