@@ -1,4 +1,3 @@
-
 public class Album {
     private String name;
     private String condition;
@@ -10,7 +9,7 @@ public class Album {
         this.name = name;
         this.condition = condition;
         this.manager = manager;
-        NbComps =0;
+        NbComps = 0;
     }
 
     public String getName()
@@ -33,10 +32,10 @@ public class Album {
         LinkedList<Photo> Rphotos = new LinkedList<Photo>();
         {
             LinkedList<Photo> photos1 = manager.getPhotos();
-            if (! photos1.empty())
+            if (!photos1.empty())
             {
                 photos1.findFirst();
-                while (! photos1.last())
+                while (!photos1.last())
                 {
                     Rphotos.insert(new Photo(photos1.retrieve().getPath(), photos1.retrieve().getTags()));
                     photos1.findNext();
@@ -44,26 +43,24 @@ public class Album {
                 Rphotos.insert(new Photo(photos1.retrieve().getPath(), photos1.retrieve().getTags()));
             }
         }
-        NbComps =0 ;
+        NbComps = 0;
 
         if (this.condition.compareTo("") != 0)
         {
-            String [] Array = condition.split(" AND ");
+            String[] Array = condition.split(" AND ");
 
             Rphotos.findFirst();
-            while ( ! Rphotos.last())
+            while (!Rphotos.last()) // Changed for loop to while loop
             {
                 Photo photo = Rphotos.retrieve();
-                if ( ! allAvilable (photo.allTags , Array ))
+                if (!allAvilable(photo.allTags, Array))
                     Rphotos.remove();
                 else
                     Rphotos.findNext();
             }
             Photo photo11 = Rphotos.retrieve();
-            if ( ! allAvilable (photo11.allTags , Array ))
+            if (!allAvilable(photo11.allTags, Array))
                 Rphotos.remove();
-            else
-                Rphotos.findNext();
         }
         return Rphotos;
     }
@@ -73,22 +70,23 @@ public class Album {
         return NbComps;
     }
 
-    private boolean allAvilable ( LinkedList<String> AllTags , String [] Array )
+    private boolean allAvilable(LinkedList<String> AllTags, String[] Array)
     {
         boolean continue1 = true;
         if (AllTags.empty())
             continue1 = false;
         else
         {
-            for ( int i = 0 ; i < Array.length && continue1 ; i++)
+            int i = 0;
+            while (i < Array.length && continue1) // Changed for loop to while loop
             {
                 boolean found_in_tags = false;
 
                 AllTags.findFirst();
 
-                while (!AllTags.last())
+                while (!AllTags.last()) // Changed for loop to while loop
                 {
-                    this.NbComps ++ ;
+                    this.NbComps++;
                     if (AllTags.retrieve().compareToIgnoreCase(Array[i]) == 0)
                     {
                         found_in_tags = true;
@@ -96,14 +94,16 @@ public class Album {
                     }
                     AllTags.findNext();
                 }
-                if (! found_in_tags )
+                if (!found_in_tags)
                 {
-                    this.NbComps ++ ;
+                    this.NbComps++;
                     if (AllTags.retrieve().compareToIgnoreCase(Array[i]) == 0)
                         found_in_tags = true;
                 }
-                if ( ! found_in_tags )
+                if (!found_in_tags)
                     continue1 = false;
+
+                i++; // incrementing manually for while loop
             }
         }
         return continue1;
