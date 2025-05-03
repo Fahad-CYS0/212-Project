@@ -1,15 +1,10 @@
-/**
- *
- * @author Manal Alhihi
- *
- */
+
 public class BST<T> {
     public class BSTNode <T> {
         public String key;
         public T data;
         public BSTNode<T> left, right;
 
-        /** Creates a new instance of BSTNode */
         public BSTNode(String k, T val) {
             key = k;
             data = val;
@@ -27,7 +22,6 @@ public class BST<T> {
     BSTNode<T> root, current;
     String AllKeys;
 
-    /** Creates a new instance of BST */
     public BST() {
         root = current = null;
     }
@@ -71,8 +65,8 @@ public class BST<T> {
         BSTNode<T> q = current;
 
         if(findkey(k)) {
-            current = q;  // findkey() modified current
-            return false; // key already in the BST
+            current = q;  
+            return false; 
         }
 
         p = new BSTNode<T>(k, val);
@@ -81,7 +75,6 @@ public class BST<T> {
             return true;
         }
         else {
-            // current is pointing to parent of the new key
             if (k.compareToIgnoreCase(current.key) < 0)
                 current.left = p;
             else
@@ -104,21 +97,21 @@ public class BST<T> {
         if(p == null)
             return null;
         if(key.compareToIgnoreCase(p.key) <0)
-            p.left = remove_aux(key, p.left, flag); //go left
+            p.left = remove_aux(key, p.left, flag); 
         else if(key.compareToIgnoreCase(p.key) > 0)
-            p.right = remove_aux(key, p.right, flag); //go right
+            p.right = remove_aux(key, p.right, flag);
         else {
             flag = true;
-            if (p.left != null && p.right != null){ //two children
+            if (p.left != null && p.right != null){ 
                 q = find_min(p.right);
                 p.key = q.key;
                 p.data = q.data;
                 p.right = remove_aux(q.key, p.right, flag);
             }
             else {
-                if (p.right == null) //one child
+                if (p.right == null)  
                     child = p.left;
-                else if (p.left == null) //one child
+                else if (p.left == null)  
                     child = p.right;
                 return child;
             }
@@ -144,12 +137,10 @@ public class BST<T> {
         return insert(key, data);
     }
 
-    //Method removeKey: iterative
     public boolean removeKey(String k) {
-        // Search
         String  k1 = k;
         BSTNode<T> p = root;
-        BSTNode<T> q = null;    // Parent of p
+        BSTNode<T> q = null;   
 
         while (p != null)
         {
@@ -164,12 +155,10 @@ public class BST<T> {
                 p = p.right;
             }
             else {
-                // Found the key
-                // Check the three cases
+               
                 if ((p.left != null) && (p.right != null))
                 {
-                    // Case 3: two children
-                    // Search for the min in the right subtree
+                   
                     BSTNode<T> min = p.right;
                     q = p;
                     while (min.left != null)
@@ -181,23 +170,18 @@ public class BST<T> {
                     p.data = min.data;
                     k1 = min.key;
                     p = min;
-                    // Now fall back to either case 1 or 2
                 }
-                // The subtree rooted at p will change here
                 if (p.left != null)
                 {
-                    // One child
                     p = p.left;
                 }
                 else
                 {
-                    // One or no children
                     p = p.right;
                 }
 
                 if (q == null)
                 {
-                    // No parent for p, root must change
                     root = p;
                 }
                 else
@@ -215,7 +199,7 @@ public class BST<T> {
                 return true;
             }
         }
-        return false; // Not found
+        return false; 
     }
 
     public String inOrder ()
